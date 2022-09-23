@@ -10,6 +10,7 @@ import { GameBanner } from './components/GameBanner';
 import { CreateAdBanner } from './components/CreateAdBanner';
 
 import { CreateAdModal } from './components/CreateAdModal';
+import { api } from './services/api';
 
 interface Game {
   id: string;
@@ -24,11 +25,9 @@ export function App() {
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3333/games')
-      .then((response) => response.json())
-      .then((data) => {
-        setGames(data);
-      });
+    api('games').then((response) => {
+      setGames(response.data);
+    });
   }, []);
 
   return (
